@@ -31,8 +31,9 @@ body{
 }
 .screen{
     flex:1;
-    background-color: rgba(4, 0, 0, 0.446);
-    font-size: 90%;
+    background-color: rgba(32, 5, 56, 0.446);
+    font-size: 1.7rem;
+    font-family: 'Press Start 2P', cursive;
     color: greenyellow;
     border-radius: 5px;
     display: flex;
@@ -86,4 +87,7 @@ input[type=number] {
 .button.erase:hover{
     opacity: 0.7;
     color: red;
+}
+.equals{
+    background-color: gold;
 }
