@@ -18,7 +18,9 @@ numbers.forEach(function(number){
     number.addEventListener('mouseup',function(){writeToScreen(number)});
 });
 operations.forEach(function(operator){
-    operator.addEventListener('mouseup',function(){makeOperation(operator)});
+    operator.addEventListener('mouseup',function(){ 
+        makeOperation(operator)
+    });
 });
 dot.addEventListener('mouseup',function(){
     addDot();
@@ -42,40 +44,39 @@ function addDot(){
 }
 function makeOperation(operator){
     //console.log(ops)
+    clear = true;
     operate(Number(screen.innerText));
     ops = operator.innerText;
 }
 function operate(number){
-    
     switch(ops){
         case "+":
+            clear = false;
             result+=number;
             screen.innerText = result;
-            clear = false;
             existDot = false;
             break;
         case "-":
+            clear=false;
             result-=number;
             screen.innerText = result;
-            clear=false;
             existDot = false;
             break;
         case "x":
+            clear=false;
             result*=number;
             screen.innerText = result;
-            clear=false;
             existDot = false;
             break;
         case "÷":
+            clear = false;
             result/=number;
             screen.innerText = result;
-            clear=false;
             existDot = false;
             break;
         case "=":
             result = number;
             screen.innerText = result;
-            clear = true;
             existDot = false;
             break;
     }
