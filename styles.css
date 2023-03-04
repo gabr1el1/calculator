@@ -14,34 +14,42 @@ html,body{
 }
 body{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    
+    flex-direction: column;
+
 }
-.container{
+main{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+.calculator{
+    background-color: rgb(145, 2, 255);
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 10px;
+    width: 36%;
     padding: 10px;
-    background-color: rgb(88, 11, 151);
-    width: 33%;
-    height: 70%;
-    border-radius: 5px;
-    border: medium double white;
+    border-radius: 10px;
+    border: medium solid white;
 }
 .screen{
-    flex:1;
+    flex: 2;
+    overflow-y: auto;
     background-color: rgba(32, 5, 56, 0.446);
     font-size: 1.7rem;
     font-family: 'Press Start 2P', cursive;
+    text-align:right;
     color: greenyellow;
     border-radius: 5px;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     align-items: center;
     border: medium solid white;
-    overflow-x: auto;
-    padding-left: 5px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    word-break: break-word;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -56,11 +64,11 @@ input[type=number] {
 .row{
     flex: 1;
     display: flex;
-    gap: 5px;
+    gap: 10px;
     overflow: hidden;
 }
 .button{
-    background-color: rgba(109, 47, 255, 0.88);
+    background-color: rgba(87, 21, 239, 0.88);
     flex:1;
     border-radius: 5px;
     text-align: center;
@@ -73,10 +81,13 @@ input[type=number] {
     -webkit-user-select: none;
     min-width: 0;
 }
-.number:hover,.operation:hover{
-    opacity: 0.7;
-    color: greenyellow;
+.all-clear{
+    background-color: red;
 }
+.button:hover{
+    opacity: 0.7;
+}
+
 .material-symbols-outlined {
     font-variation-settings:
     'FILL' 0,
@@ -84,10 +95,22 @@ input[type=number] {
     'GRAD' 0,
     'opsz' 48
 }
-.button.erase:hover{
-    opacity: 0.7;
-    color: red;
+.button.erase{
+    background-color: orange;
 }
-.equals{
-    background-color: gold;
+
+.button.operation.equals{
+    background-color: rgb(212, 0, 255);
+}
+.button.operation{
+    background-color: rgb(0, 255, 60);
+}
+
+footer{
+    display: flex;
+    justify-content: center;
+    color: white;
+    padding: 1rem;
+    font-size: 0.7rem;
+    background-color: rgba(109, 47, 255, 0.88);
 }

@@ -1,71 +1,108 @@
 const screen = document.querySelector(".screen");
+const allClear = document.querySelector(".all-clear");
+const plusMinus = document.querySelector(".plus-minus");
 const numbers = Array.from(document.querySelectorAll(".number"));
 const operations = Array.from(document.querySelectorAll(".operation"));
-
-let cursorPos, newValue;
+const dot = document.querySelector('.dot');
+const erase = document.querySelector(".erase");
+let existDot = false;
 let result = 0;
 let ops="=";
-let clear;
+let clear = true;
 
-screen.addEventListener('keydown',function(e){
-    if(isNaN(e.key) && e.keyCode!==8 && e.keyCode!==37 && e.keyCode!==39){
-        e.preventDefault();
-    } 
-    if(clear){
-        screen.value = "";
-        clear = false;
-    }
-});
+allClear.addEventListener('mouseup',function(){clearAll()});
+plusMinus.addEventListener('mouseup',function(){
+    changeSign();
+})
 numbers.forEach(function(number){
     number.addEventListener('mouseup',function(){writeToScreen(number)});
 });
 operations.forEach(function(operator){
     operator.addEventListener('mouseup',function(){makeOperation(operator)});
 });
+dot.addEventListener('mouseup',function(){
+    addDot();
+});
+erase.addEventListener('mouseup',function(){
+    eraseToScreen();
+});
+
+function eraseToScreen(){
+    screen.innerText = screen.innerText.substring(0,screen.innerText.length-1);
+    if(screen.innerText==""){
+        screen.innerText=0;
+        clear=true;
+    }
+}
+function addDot(){
+    if(!existDot){
+        screen.innerText = screen.innerText + ".";
+        existDot = true;
+    }
+}
 function makeOperation(operator){
-    console.log(ops)
-    operate(Number(screen.value));
+    //console.log(ops)
+    operate(Number(screen.innerText));
     ops = operator.innerText;
 }
-function writeToScreen(number){
-    if(clear){
-        screen.value = "";
-        clear = false;
-    }
-    if(screen.selectionEnd==0){
-        cursorPos = 0;
-    }else{
-        cursorPos = screen.selectionEnd;
-    }
-    newValue = screen.value.split("");
-    newValue.splice(cursorPos,0,number.innerText);
-    newValue = newValue.join("");
-    screen.value = newValue;
-    screen.focus();
-    screen.selectionEnd = cursorPos+1;
-}
 function operate(number){
-    clear = true;
+    
     switch(ops){
         case "+":
             result+=number;
-            screen.value = result;
+            screen.innerText = result;
+            clear = false;
+            existDot = false;
             break;
         case "-":
             result-=number;
-            screen.value = result;
+            screen.innerText = result;
+            clear=false;
+            existDot = false;
             break;
         case "x":
             result*=number;
-            screen.value = result;
+            screen.innerText = result;
+            clear=false;
+            existDot = false;
             break;
         case "÷":
             result/=number;
-            screen.value = result;
+            screen.innerText = result;
+            clear=false;
+            existDot = false;
             break;
         case "=":
             result = number;
-            screen.value = result;
+            screen.innerText = result;
+            clear = true;
+            existDot = false;
             break;
     }
 }
+function writeToScreen(number){
+    if(clear){
+        screen.innerText = "";
+        clear=false;
+    }
+    if(!clear){
+        screen.innerText = screen.innerText + number.innerText;
+    }  
+}
+function changeSign(){
+    if(Number(screen.innerText)>0 || Number(screen.innerText)<0){
+        screen.innerText= -1 * Number(screen.innerText);
+    }
+}
+function clearAll(){
+    ops="="
+    result = 0;
+    clear = true;
+    screen.innerText="0";
+    existDot = false;
+}
+
+/*
+99 + 
+99 se borra
+*/
