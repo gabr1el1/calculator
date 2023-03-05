@@ -6,7 +6,6 @@ const operations = Array.from(document.querySelectorAll(".operation"));
 const dot = document.querySelector('.dot');
 const erase = document.querySelector(".erase");
 let ops="=";
-let existDot = false;
 let clear = false;
 let result = 0;
 let number;
@@ -37,9 +36,8 @@ function eraseToScreen(){
     }
 }
 function addDot(){
-    if(!existDot){
+    if(!screen.innerText.includes(".")){
         screen.innerText = screen.innerText + ".";
-        existDot = true;
     }
 }
 function operate(operator){
@@ -64,7 +62,6 @@ function operate(operator){
     }
     ops=operator;
     screen.innerText = result;
-    existDot = false;
 }
 function writeToScreen(number){
     if(clear){
@@ -85,5 +82,4 @@ function clearAll(){
     screen.innerText="";
     ops="="
     result = 0;
-    existDot = false;
 }
