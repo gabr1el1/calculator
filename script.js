@@ -77,8 +77,8 @@ function writeToScreen(number){
 
 }
 function changeSign(){
-    if(Number(screen.innerText)>0 || Number(writable.innerText)<0){
-        screen.innerText= -1 * Number(writable.innerText);
+    if(Number(screen.innerText)>0 || Number(screen.innerText)<0){
+        screen.innerText= -1 * Number(screen.innerText);
     }
 }
 function clearAll(){
