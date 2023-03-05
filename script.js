@@ -1,25 +1,25 @@
-const screen = document.querySelector(".screen");
+const screen = document.querySelector('.screen');
 const allClear = document.querySelector(".all-clear");
 const plusMinus = document.querySelector(".plus-minus");
 const numbers = Array.from(document.querySelectorAll(".number"));
 const operations = Array.from(document.querySelectorAll(".operation"));
 const dot = document.querySelector('.dot');
 const erase = document.querySelector(".erase");
-let existDot = false;
-let result = 0;
 let ops="=";
-let clear = true;
-
+let existDot = false;
+let clear = false;
+let result = 0;
+let number;
 allClear.addEventListener('mouseup',function(){clearAll()});
 plusMinus.addEventListener('mouseup',function(){
     changeSign();
 })
 numbers.forEach(function(number){
-    number.addEventListener('mouseup',function(){writeToScreen(number)});
+    number.addEventListener('mouseup',function(){writeToScreen(number.innerText)});
 });
 operations.forEach(function(operator){
     operator.addEventListener('mouseup',function(){ 
-        makeOperation(operator)
+        operate(operator.innerText);
     });
 });
 dot.addEventListener('mouseup',function(){
@@ -42,68 +42,48 @@ function addDot(){
         existDot = true;
     }
 }
-function makeOperation(operator){
-    //console.log(ops)
+function operate(operator){
     clear = true;
-    operate(Number(screen.innerText));
-    ops = operator.innerText;
-}
-function operate(number){
+    number=Number(screen.innerText);
     switch(ops){
         case "+":
-            clear = false;
             result+=number;
-            screen.innerText = result;
-            existDot = false;
             break;
         case "-":
-            clear=false;
             result-=number;
-            screen.innerText = result;
-            existDot = false;
             break;
         case "x":
-            clear=false;
             result*=number;
-            screen.innerText = result;
-            existDot = false;
             break;
         case "÷":
-            clear = false;
             result/=number;
-            screen.innerText = result;
-            existDot = false;
             break;
         case "=":
             result = number;
-            screen.innerText = result;
-            existDot = false;
             break;
     }
+    ops=operator;
+    screen.innerText = result;
+    existDot = false;
 }
 function writeToScreen(number){
     if(clear){
-        screen.innerText = "";
-        clear=false;
+        screen.innerText= "";
+        screen.innerText = screen.innerText+number;
+        clear = false;
+    }else{
+        screen.innerText = screen.innerText+number;
     }
-    if(!clear){
-        screen.innerText = screen.innerText + number.innerText;
-    }  
+
 }
 function changeSign(){
-    if(Number(screen.innerText)>0 || Number(screen.innerText)<0){
-        screen.innerText= -1 * Number(screen.innerText);
+    if(Number(screen.innerText)>0 || Number(writable.innerText)<0){
+        screen.innerText= -1 * Number(writable.innerText);
     }
 }
 function clearAll(){
+    screen.innerText="";
     ops="="
     result = 0;
-    clear = true;
-    screen.innerText="0";
     existDot = false;
 }
-
-/*
-99 + 
-99 se borra
-*/
